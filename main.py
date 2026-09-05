@@ -100,3 +100,25 @@ with col3:
     )
 
 st.caption("자료: 서울 기상관측 데이터")
+
+# 일별 평균기온 분포
+st.subheader("🌡️ 일별 평균기온 분포")
+st.write("전체 관측일의 평균기온이 어느 온도 구간에 얼마나 많이 나타났는지 보여줍니다.")
+
+fig_hist = px.histogram(
+    df.dropna(subset=["평균기온"]),
+    x="평균기온",
+    nbins=30,
+    labels={
+        "평균기온": "평균기온(℃)",
+        "count": "관측일 수"
+    }
+)
+
+fig_hist.update_layout(
+    height=500,
+    xaxis_title="평균기온(℃)",
+    yaxis_title="관측일 수"
+)
+
+st.plotly_chart(fig_hist, use_container_width=True)
